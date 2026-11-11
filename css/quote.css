@@ -1,0 +1,191 @@
+/* QuoteCraft — quotation document (A4) + 3 templates + print
+   Corporate standard: hairline rules, tabular numerals, square corners, restrained colour. */
+.qd {
+  --ink: #111827; --ink-2: #374151; --muted: #6B7280; --faint: #9CA3AF; --line: #E5E7EB; --line-2: #D1D5DB; --head: #F3F4F6;
+  width: 210mm; min-height: 297mm; box-sizing: border-box; padding: 11mm 13mm 9mm;
+  background: #fff; color: var(--ink); font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 9.5pt; line-height: 1.4; display: flex; flex-direction: column; gap: 2.7mm;
+  -webkit-print-color-adjust: exact; print-color-adjust: exact; text-align: left;
+  font-feature-settings: 'tnum' 1;
+}
+.qd *, .qd *::before, .qd *::after { box-sizing: border-box; }
+.qd small { font-size: .85em; color: var(--muted); font-weight: 400; }
+.qd b { font-weight: 600; }
+.qd-k, .qd-plabel, .qd-sh { font-size: 7.2pt; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; line-height: 1.3; }
+.qd-sh { margin-bottom: 1.4mm; color: var(--ink-2); }
+
+/* ---------- header ---------- */
+.qd-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8mm; padding-bottom: 3mm; border-bottom: 1px solid var(--line); }
+.qd-brand { display: flex; align-items: center; gap: 3.5mm; min-width: 0; }
+.qd-logo { width: 13mm; height: 13mm; border-radius: 1mm; overflow: hidden; display: flex; align-items: center; justify-content: center; flex: none; background: #fff; }
+.qd-logo img { width: 100%; height: 100%; object-fit: contain; }
+.qd-mono { background: var(--b); color: var(--b-ink); font-weight: 700; font-size: 12pt; letter-spacing: .02em; }
+.qd-co { font-weight: 700; font-size: 13.5pt; line-height: 1.2; letter-spacing: -.005em; color: var(--ink); }
+.qd-tag { font-size: 8.3pt; color: var(--muted); margin-top: .8mm; }
+.qd-titlebox { text-align: right; flex: none; }
+.qd-title { font-weight: 600; font-size: 14.5pt; letter-spacing: .14em; text-transform: uppercase; line-height: 1; color: var(--ink); margin-bottom: 1.6mm; }
+.qd-meta { border-collapse: collapse; margin-left: auto; font-size: 8.4pt; line-height: 1.28; }
+.qd-meta th { text-align: left; font-weight: 400; color: var(--muted); padding: .2mm 5mm .2mm 0; white-space: nowrap; }
+.qd-meta td { text-align: right; font-weight: 600; color: var(--ink); padding: .2mm 0; white-space: nowrap; }
+.qd-meta td small { font-weight: 400; }
+
+/* ---------- parties ---------- */
+.qd-parties { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6mm; break-inside: avoid; }
+.qd-party { min-width: 0; }
+.qd-plabel { margin-bottom: .9mm; }
+.qd-pname { font-weight: 600; font-size: 9.6pt; line-height: 1.3; margin-bottom: .5mm; color: var(--ink); }
+.qd-patt { font-size: 8.3pt; color: var(--ink-2); margin-bottom: .2mm; line-height: 1.36; }
+.qd-ptext { color: var(--ink-2); font-size: 8.3pt; line-height: 1.36; }
+.qd-pcontact { margin-top: .5mm; color: var(--muted); font-size: 7.9pt; }
+.qd-pkv { font-size: 8.3pt; font-weight: 600; margin-top: .5mm; color: var(--ink); line-height: 1.36; }
+.qd-pkv span { font-size: 7pt; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-right: 1.8mm; font-weight: 600; }
+
+/* ---------- subject ---------- */
+.qd-subject { display: flex; flex-wrap: wrap; gap: 1mm 8mm; font-size: 8.8pt; color: var(--ink); padding: 1.5mm 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.qd-subject span { display: inline-block; margin-right: 2.5mm; font-size: 7.2pt; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+
+/* ---------- items ---------- */
+.qd-items { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.qd-items thead { display: table-header-group; }
+.qd-items th { font-size: 7.2pt; letter-spacing: .06em; text-transform: uppercase; font-weight: 600; color: var(--ink-2); padding: 1.7mm 1.8mm; text-align: left; background: var(--head); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.qd-items td { padding: 1.25mm 1.8mm; vertical-align: top; border-bottom: 1px solid var(--line); font-size: 9pt; line-height: 1.3; }
+.qd-items tr { break-inside: avoid; page-break-inside: avoid; }
+.c-no { width: 5%; text-align: center !important; color: var(--muted); }
+.c-item { width: auto; }
+.c-hsn { width: 8.5%; }
+.c-qty { width: 9.5%; text-align: right !important; white-space: nowrap; }
+.c-rate { width: 10.5%; text-align: right !important; }
+.c-disc { width: 6.5%; text-align: right !important; }
+.c-gst { width: 6%; text-align: right !important; }
+.c-amt { width: 12.5%; text-align: right !important; font-weight: 600; }
+.qd-items td.c-hsn { color: var(--muted); font-size: 8.4pt; }
+.qd-items td.c-disc, .qd-items td.c-gst { color: var(--ink-2); }
+.qd-unit { color: var(--muted); font-size: 7.8pt; }
+.qd-item { display: flex; gap: 2.4mm; align-items: flex-start; }
+.qd-thumb { width: 7.5mm; height: 7.5mm; border-radius: .6mm; object-fit: cover; flex: none; border: 1px solid var(--line); }
+.qd-iname { font-weight: 600; line-height: 1.28; color: var(--ink); }
+.qd-idesc { color: var(--muted); font-size: 8pt; margin-top: .2mm; line-height: 1.3; }
+.qd-empty { text-align: center; color: var(--muted); padding: 8mm !important; }
+
+/* ---------- summary ---------- */
+.qd-sum { display: grid; grid-template-columns: minmax(0, 1fr) 70mm; gap: 8mm; align-items: start; break-inside: avoid; }
+.qd-words { margin-bottom: 2mm; }
+.qd-wtext { font-weight: 600; margin-top: .4mm; color: var(--ink); font-size: 9pt; line-height: 1.3; }
+.qd-tax { width: 100%; border-collapse: collapse; font-size: 8pt; }
+.qd-tax th { text-align: right; font-size: 6.9pt; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: .9mm 1.6mm; border-bottom: 1px solid var(--line-2); font-weight: 600; }
+.qd-tax td { text-align: right; padding: .65mm 1.6mm; line-height: 1.3; border-bottom: 1px solid var(--line); color: var(--ink-2); }
+.qd-tax th:first-child, .qd-tax td:first-child { text-align: left; padding-left: 0; }
+.qd-tax th:last-child, .qd-tax td:last-child { padding-right: 0; }
+.qd-tax tfoot td { font-weight: 600; color: var(--ink); border-bottom: none; }
+.qd-taxnote { font-size: 7.6pt; color: var(--muted); margin-top: 1mm; line-height: 1.3; }
+.qd-totals { font-size: 9pt; line-height: 1.3; }
+.qd-trow { display: flex; justify-content: space-between; gap: 3mm; padding: .45mm 0; }
+.qd-trow span { color: var(--ink-2); }
+.qd-trow b { font-weight: 500; color: var(--ink); }
+.qd-trow.strong span, .qd-trow.strong b { font-weight: 600; color: var(--ink); }
+.qd-trow.strong { border-top: 1px solid var(--line); margin-top: .5mm; padding-top: 1.1mm; }
+.qd-trow.neg b { color: #B42318; }
+.qd-grand { display: flex; justify-content: space-between; align-items: baseline; gap: 3mm; margin-top: 1.2mm; padding-top: 1.6mm; border-top: 1.5px solid var(--b); }
+.qd-grand span { font-weight: 600; font-size: 8pt; letter-spacing: .08em; text-transform: uppercase; color: var(--ink); }
+.qd-grand b { font-size: 13pt; font-weight: 700; color: var(--b); letter-spacing: -.005em; }
+
+/* ---------- bank · QR · signature (one compact row) ---------- */
+.qd-pay { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, .85fr) minmax(0, 1.2fr); gap: 5mm; align-items: stretch; padding-top: 2.6mm; border-top: 1px solid var(--line); break-inside: avoid; }
+.qd-pay.no-qr { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+.qd-kv { display: grid; grid-template-columns: 19mm minmax(0, 1fr); gap: 2mm; font-size: 8pt; line-height: 1.36; padding: .1mm 0; }
+.qd-kv span { color: var(--muted); white-space: nowrap; }
+.qd-kv b { font-weight: 600; color: var(--ink); }
+.qd-upi { display: flex; align-items: center; gap: 3mm; }
+.qd-upi img { width: 20mm; height: 20mm; background: #fff; image-rendering: pixelated; flex: none; border: 1px solid var(--line); }
+.qd-upitext { font-size: 8.2pt; color: var(--ink-2); line-height: 1.45; }
+.qd-upitext b { font-size: 9.6pt; color: var(--ink); font-weight: 600; }
+.qd-sign { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; text-align: right; }
+.qd-for { font-size: 8.2pt; font-weight: 600; color: var(--ink); line-height: 1.3; }
+.qd-sigimg { height: 11.5mm; max-width: 34mm; object-fit: contain; margin: .4mm 0; }
+.qd-sigspace { height: 11mm; }
+.qd-sigline { border-top: 1px solid var(--line-2); padding-top: .8mm; min-width: 42mm; font-weight: 600; font-size: 8.2pt; color: var(--ink); line-height: 1.3; }
+.qd-sigsub { font-size: 7.3pt; color: var(--muted); line-height: 1.3; }
+
+/* ---------- terms ---------- */
+.qd-terms { display: block; font-size: 7.7pt; color: var(--ink-2); line-height: 1.34; break-inside: avoid; }
+.qd-terms ol { margin: 0; padding-left: 4mm; }
+.qd-terms li { margin: .1mm 0; padding-left: .5mm; }
+.qd-notes { margin-top: 2mm; font-size: 8pt; color: var(--ink-2); line-height: 1.32; }
+.qd-notes p { margin: .3mm 0 0; }
+
+/* ---------- footer ---------- */
+.qd-foot { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-start; gap: 6mm; padding-top: 2mm; border-top: 1px solid var(--line); }
+.qd-thanks { font-weight: 500; color: var(--ink-2); font-size: 8pt; max-width: 62%; line-height: 1.35; }
+.qd-fgen { font-size: 7.2pt; color: var(--faint); text-align: right; line-height: 1.35; }
+
+/* ============ MODERN — slim brand band, light grey grid ============ */
+.qd--modern { border-top: 2.2mm solid var(--b); }
+.qd--modern .qd-title { color: var(--b); }
+.qd--modern .qd-plabel, .qd--modern .qd-sh { color: var(--b-dark); }
+.qd--modern .qd-items th { border-top: 1px solid var(--line); }
+.qd--modern .qd-items th.c-no { border-left: 0; }
+
+/* ============ CLASSIC — formal serif, fully ruled ============ */
+.qd--classic .qd-co, .qd--classic .qd-title, .qd--classic .qd-pname, .qd--classic .qd-grand b, .qd--classic .qd-sh, .qd--classic .qd-plabel { font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif; }
+.qd--classic .qd-co { font-size: 14.5pt; font-weight: 600; letter-spacing: 0; line-height: 1.15; }
+.qd--classic .qd-title { font-weight: 600; font-size: 14pt; letter-spacing: .22em; color: var(--ink); }
+.qd--classic .qd-head { border-bottom: 1.5px solid var(--ink); position: relative; padding-bottom: 3mm; margin-bottom: .6mm; }
+.qd--classic .qd-head::after { content: ''; position: absolute; left: 0; right: 0; bottom: -4px; border-bottom: 1px solid var(--ink); }
+.qd--classic .qd-mono { background: #fff; color: var(--b-deep); border: 1px solid var(--b-deep); font-family: 'Source Serif 4', Georgia, serif; font-weight: 600; }
+.qd--classic .qd-plabel, .qd--classic .qd-sh { letter-spacing: .1em; color: var(--ink); font-weight: 600; font-size: 7.2pt; }
+.qd--classic .qd-pname { font-size: 9.8pt; line-height: 1.25; }
+.qd--classic .qd-parties { gap: 0; border: 1px solid var(--line-2); }
+.qd--classic .qd-party { padding: 1.6mm 2.6mm; border-right: 1px solid var(--line-2); }
+.qd--classic .qd-party:last-child { border-right: 0; }
+.qd--classic .qd-subject { border-color: var(--line-2); }
+.qd--classic .qd-items { border: 1px solid var(--line-2); }
+.qd--classic .qd-items th { border: 1px solid var(--line-2); color: var(--ink); }
+.qd--classic .qd-items td { border: 1px solid var(--line-2); border-top: 0; }
+.qd--classic .qd-totals { border: 1px solid var(--line-2); padding: .3mm 3mm 1.2mm; }
+.qd--classic .qd-grand { border-top: 1px solid var(--ink); }
+.qd--classic .qd-grand b { color: var(--ink); font-size: 13.5pt; font-weight: 700; }
+.qd--classic .qd-pay { border-top: 1px solid var(--line-2); }
+.qd--classic .qd-foot { border-top: 1px solid var(--ink); }
+.qd--classic .qd-thanks { font-family: 'Source Serif 4', Georgia, serif; font-style: italic; font-size: 9pt; }
+
+/* ============ MINIMAL — monochrome, open, single accent ============ */
+.qd--minimal { gap: 3.4mm; }
+.qd--minimal .qd-head { border-bottom: 1px solid var(--ink); }
+.qd--minimal .qd-logo { width: 11mm; height: 11mm; }
+.qd--minimal .qd-mono { background: var(--ink); color: #fff; }
+.qd--minimal .qd-co { font-size: 12pt; font-weight: 600; }
+.qd--minimal .qd-title { font-weight: 300; font-size: 21pt; letter-spacing: .02em; text-transform: none; }
+.qd--minimal .qd-subject { border-top: 0; padding-top: 0; }
+.qd--minimal .qd-items th { background: none; border-top: 0; border-bottom: 1px solid var(--ink); color: var(--ink); padding-left: 1mm; padding-right: 1mm; }
+.qd--minimal .qd-items td { padding-left: 1mm; padding-right: 1mm; }
+.qd--minimal .qd-grand { border-top: 1px solid var(--ink); }
+.qd--minimal .qd-grand b { font-size: 14pt; }
+.qd--minimal .qd-pay { border-top: 0; padding-top: 0; }
+
+/* ============ PDF capture mode (html2pdf): block rows so page-break padding can be inserted ============ */
+.qd--pdf { min-height: 0; padding-top: 3mm; padding-bottom: 1mm; font-feature-settings: 'calt' 0; font-variant-numeric: normal; }
+.qd--pdf * { font-feature-settings: 'calt' 0 !important; font-variant-numeric: normal !important; }
+.qd--pdf .qd-foot { margin-top: 1mm; }
+.qd--pdf .qd-items, .qd--pdf .qd-items thead, .qd--pdf .qd-items tbody { display: block; width: 100%; }
+.qd--pdf .qd-items tr { display: flex; width: 100%; }
+.qd--pdf .qd-items th, .qd--pdf .qd-items td { display: block; flex: none; }
+.qd--pdf .qd-items .c-item { flex: 1 1 auto; min-width: 0; }
+.qd--pdf .qd-items thead tr { background: var(--head); }
+.qd--pdf.qd--minimal .qd-items thead tr { background: none; }
+.qd--pdf .qd-items th { background: none; }
+.qd--pdf.qd--modern { padding-top: 5mm; }
+.qd--pdf.qd--classic .qd-items { border: 0; }
+.qd--pdf.qd--classic .qd-items th, .qd--pdf.qd--classic .qd-items td { border-left: 0; }
+.qd--pdf.qd--classic .qd-items th:first-child, .qd--pdf.qd--classic .qd-items td:first-child { border-left: 1px solid var(--line-2); }
+
+/* ============ Print ============ */
+@page { size: A4; margin: 9mm 11mm; }
+@media print {
+  html, body { background: #fff !important; }
+  body > *:not(#print-root) { display: none !important; }
+  #print-root { display: block !important; }
+  #print-root .qd { width: auto; min-height: 0; padding: 0; box-shadow: none; }
+  #print-root .qd--modern { padding-top: 4mm; }
+  #print-root .qd-foot { margin-top: 3mm; }
+  .qd-sum, .qd-pay, .qd-terms, .qd-foot, .qd-parties, .qd-head { break-inside: avoid; page-break-inside: avoid; }
+}
