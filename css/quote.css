@@ -118,12 +118,40 @@
 .qd-thanks { font-weight: 500; color: var(--ink-2); font-size: 8pt; max-width: 62%; line-height: 1.35; }
 .qd-fgen { font-size: 7.2pt; color: var(--faint); text-align: right; line-height: 1.35; }
 
-/* ============ MODERN — slim brand band, light grey grid ============ */
-.qd--modern { border-top: 2.2mm solid var(--b); }
-.qd--modern .qd-title { color: var(--b); }
-.qd--modern .qd-plabel, .qd--modern .qd-sh { color: var(--b-dark); }
-.qd--modern .qd-items th { border-top: 1px solid var(--line); }
-.qd--modern .qd-items th.c-no { border-left: 0; }
+/* ============ MODERN — brand header panel, soft party cards, coloured table head, totals card ============
+   Text on brand areas uses --b-ink (white, or near-black for light brand colours), so any brand colour stays readable. */
+.qd--modern { gap: 3.4mm; }
+.qd--modern .qd-head { background: var(--b); border: 0; border-radius: 2.6mm; padding: 5mm 6mm; align-items: center; }
+.qd--modern .qd-logo { width: 14mm; height: 14mm; padding: 1mm; border-radius: 2mm; background: #fff; }
+.qd--modern .qd-mono { background: #fff; color: var(--b); }
+.qd--modern .qd-co { color: var(--b-ink); font-size: 14pt; }
+.qd--modern .qd-tag { color: var(--b-ink); opacity: .8; }
+.qd--modern .qd-title { color: var(--b-ink); font-size: 16pt; font-weight: 700; letter-spacing: .16em; margin-bottom: 2.4mm; }
+.qd--modern .qd-meta th { color: var(--b-ink); opacity: .78; }
+.qd--modern .qd-meta td, .qd--modern .qd-meta td small { color: var(--b-ink); }
+.qd--modern .qd-meta td small { opacity: .8; }
+.qd--modern .qd-parties { gap: 3mm; }
+.qd--modern .qd-party { background: var(--b-soft2); border: 1px solid var(--b-soft); border-radius: 2mm; padding: 2.6mm 3mm; }
+.qd--modern .qd-plabel, .qd--modern .qd-sh, .qd--modern .qd-k { color: var(--b-dark); }
+.qd--modern .qd-subject { border: 0; border-left: .9mm solid var(--b); padding: .5mm 0 .5mm 3mm; }
+.qd--modern .qd-items { border-collapse: separate; border-spacing: 0; }
+.qd--modern .qd-items th { background: var(--b); color: var(--b-ink); border: 0; padding-top: 2mm; padding-bottom: 2mm; }
+.qd--modern .qd-items th:first-child { border-radius: 1.6mm 0 0 1.6mm; }
+.qd--modern .qd-items th:last-child { border-radius: 0 1.6mm 1.6mm 0; }
+.qd--modern .qd-items td { padding-top: 1.7mm; padding-bottom: 1.7mm; border-bottom: 1px solid var(--line); }
+.qd--modern .qd-items tbody tr:nth-child(even) td { background: var(--b-soft2); }
+.qd--modern .qd-tax th { color: var(--b-dark); border-bottom-color: var(--b-line); }
+.qd--modern .qd-totals { background: var(--b-soft2); border: 1px solid var(--b-soft); border-radius: 2mm; padding: 2.2mm 3mm 3mm; }
+.qd--modern .qd-trow.strong { border-top-color: var(--b-line); }
+.qd--modern .qd-grand { background: var(--b); border: 0; border-radius: 1.6mm; margin: 2.2mm -1.2mm 0; padding: 2.3mm 3.2mm; align-items: center; }
+.qd--modern .qd-grand span, .qd--modern .qd-grand b { color: var(--b-ink); white-space: nowrap; }
+.qd--modern .qd-grand span { font-size: 7.6pt; letter-spacing: .06em; }
+.qd--modern .qd-grand b { font-size: 13.5pt; }
+.qd--modern .qd-pay { border-top: 0; padding-top: 0; }
+.qd--modern .qd-bank { border: 1px solid var(--line); border-radius: 2mm; padding: 2.4mm 3mm; }
+.qd--modern .qd-upi img { border-radius: 1mm; }
+.qd--modern .qd-foot { border-top: .7mm solid var(--b); padding-top: 2.4mm; }
+.qd--modern .qd-thanks { color: var(--b-dark); font-weight: 600; }
 
 /* ============ CLASSIC — formal serif, fully ruled ============ */
 .qd--classic .qd-co, .qd--classic .qd-title, .qd--classic .qd-pname, .qd--classic .qd-grand b, .qd--classic .qd-sh, .qd--classic .qd-plabel { font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif; }
@@ -148,19 +176,46 @@
 .qd--classic .qd-foot { border-top: 1px solid var(--ink); }
 .qd--classic .qd-thanks { font-family: 'Source Serif 4', Georgia, serif; font-style: italic; font-size: 9pt; }
 
-/* ============ MINIMAL — monochrome, open, single accent ============ */
-.qd--minimal { gap: 3.4mm; }
-.qd--minimal .qd-head { border-bottom: 1px solid var(--ink); }
+/* ============ MINIMAL — editorial: title left, details strip, hairlines, brand colour only on the total ============ */
+.qd--minimal { gap: 4.2mm; padding-left: 15mm; padding-right: 15mm; }
+/* row 1: title (left, positioned) + company (right); row 2: the details strip across the full width */
+.qd--minimal .qd-head { position: relative; flex-direction: row-reverse; flex-wrap: wrap; align-items: flex-start; gap: 5.5mm 10mm; padding-bottom: 4.5mm; border-bottom: 1px solid var(--ink); }
+.qd--minimal .qd-brand { flex: 0 1 auto; flex-direction: row-reverse; text-align: right; max-width: 110mm; min-height: 11mm; gap: 3mm; }
 .qd--minimal .qd-logo { width: 11mm; height: 11mm; }
-.qd--minimal .qd-mono { background: var(--ink); color: #fff; }
-.qd--minimal .qd-co { font-size: 12pt; font-weight: 600; }
-.qd--minimal .qd-title { font-weight: 300; font-size: 21pt; letter-spacing: .02em; text-transform: none; }
-.qd--minimal .qd-subject { border-top: 0; padding-top: 0; }
-.qd--minimal .qd-items th { background: none; border-top: 0; border-bottom: 1px solid var(--ink); color: var(--ink); padding-left: 1mm; padding-right: 1mm; }
-.qd--minimal .qd-items td { padding-left: 1mm; padding-right: 1mm; }
-.qd--minimal .qd-grand { border-top: 1px solid var(--ink); }
-.qd--minimal .qd-grand b { font-size: 14pt; }
-.qd--minimal .qd-pay { border-top: 0; padding-top: 0; }
+.qd--minimal .qd-mono { background: #fff; color: var(--ink); border: 1px solid var(--ink); border-radius: 50%; font-size: 10pt; }
+.qd--minimal .qd-co { font-size: 11.5pt; font-weight: 600; }
+.qd--minimal .qd-tag { font-size: 7.9pt; }
+.qd--minimal .qd-titlebox { flex: 1 1 100%; text-align: left; }
+.qd--minimal .qd-title { position: absolute; left: 0; top: -.5mm; margin: 0; font-weight: 300; font-size: 25pt; letter-spacing: -.01em; text-transform: none; }
+/* the details table becomes one row of label-over-value pairs */
+.qd--minimal .qd-meta { display: block; margin: 0; }
+.qd--minimal .qd-meta tbody { display: flex; flex-wrap: wrap; gap: 2mm 12mm; }
+.qd--minimal .qd-meta tr { display: flex; flex-direction: column; gap: .7mm; }
+.qd--minimal .qd-meta th, .qd--minimal .qd-meta td { display: block; text-align: left; padding: 0; }
+.qd--minimal .qd-meta th { font-size: 6.6pt; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--faint); }
+.qd--minimal .qd-meta td { font-size: 9pt; font-weight: 500; }
+.qd--minimal .qd-plabel, .qd--minimal .qd-sh, .qd--minimal .qd-k { color: var(--faint); letter-spacing: .12em; font-size: 6.8pt; }
+.qd--minimal .qd-plabel { margin-bottom: 1.4mm; }
+.qd--minimal .qd-parties { gap: 9mm; }
+.qd--minimal .qd-pkv span { color: var(--faint); }
+.qd--minimal .qd-subject { border: 0; padding: 0; font-size: 9pt; }
+.qd--minimal .qd-subject span { color: var(--faint); letter-spacing: .12em; font-size: 6.8pt; }
+.qd--minimal .qd-items th { background: none; border-top: 0; border-bottom: 1px solid var(--ink); color: var(--muted); font-weight: 500; letter-spacing: .1em; padding: 0 1mm 1.8mm; }
+.qd--minimal .qd-items td { padding: 2.3mm 1mm; border-bottom: 1px solid var(--line); }
+.qd--minimal .qd-iname { font-weight: 500; }
+.qd--minimal .qd-items td.c-amt { font-weight: 500; }
+.qd--minimal .qd-sum { grid-template-columns: minmax(0, 1fr) 66mm; gap: 12mm; }
+.qd--minimal .qd-tax th { color: var(--faint); border-bottom-color: var(--ink); font-weight: 500; }
+.qd--minimal .qd-trow { padding: .7mm 0; }
+.qd--minimal .qd-trow.strong { border-top-color: var(--line); }
+.qd--minimal .qd-grand { flex-direction: column; align-items: flex-end; gap: 1mm; margin-top: 2.6mm; padding-top: 3mm; border-top: 1px solid var(--ink); }
+.qd--minimal .qd-grand span { color: var(--muted); font-weight: 500; font-size: 7pt; letter-spacing: .14em; }
+.qd--minimal .qd-grand b { font-size: 19pt; font-weight: 600; letter-spacing: -.015em; color: var(--b); }
+.qd--minimal .qd-pay { padding-top: 3.6mm; }
+.qd--minimal .qd-upi img { border: 0; }
+.qd--minimal .qd-sigline { border-top-color: var(--ink); }
+.qd--minimal .qd-foot { padding-top: 2.6mm; }
+.qd--minimal .qd-thanks { font-weight: 400; color: var(--muted); }
 
 /* ============ PDF capture mode (html2pdf): block rows so page-break padding can be inserted ============ */
 .qd--pdf { min-height: 0; padding-top: 3mm; padding-bottom: 1mm; font-feature-settings: 'calt' 0; font-variant-numeric: normal; }
@@ -173,7 +228,7 @@
 .qd--pdf .qd-items thead tr { background: var(--head); }
 .qd--pdf.qd--minimal .qd-items thead tr { background: none; }
 .qd--pdf .qd-items th { background: none; }
-.qd--pdf.qd--modern { padding-top: 5mm; }
+.qd--pdf.qd--modern .qd-items thead tr { background: var(--b); border-radius: 1.6mm; }
 .qd--pdf.qd--classic .qd-items { border: 0; }
 .qd--pdf.qd--classic .qd-items th, .qd--pdf.qd--classic .qd-items td { border-left: 0; }
 .qd--pdf.qd--classic .qd-items th:first-child, .qd--pdf.qd--classic .qd-items td:first-child { border-left: 1px solid var(--line-2); }
@@ -185,7 +240,6 @@
   body > *:not(#print-root) { display: none !important; }
   #print-root { display: block !important; }
   #print-root .qd { width: auto; min-height: 0; padding: 0; box-shadow: none; }
-  #print-root .qd--modern { padding-top: 4mm; }
   #print-root .qd-foot { margin-top: 3mm; }
   .qd-sum, .qd-pay, .qd-terms, .qd-foot, .qd-parties, .qd-head { break-inside: avoid; page-break-inside: avoid; }
 }

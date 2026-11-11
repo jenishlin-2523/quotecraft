@@ -66,10 +66,10 @@ function confirmDialog({ title = 'Are you sure?', message = '', okText = 'Confir
 let _menuEl = null;
 function closeMenu() { if (_menuEl) { _menuEl.remove(); _menuEl = null; document.removeEventListener('mousedown', _menuOutside, true); } }
 function _menuOutside(e) { if (_menuEl && !_menuEl.contains(e.target)) closeMenu(); }
-function openMenu(anchor, items) {
+function openMenu(anchor, items, cls = '') {
   closeMenu();
   const m = document.createElement('div');
-  m.className = 'menu'; m.setAttribute('role', 'menu');
+  m.className = 'menu' + (cls ? ' ' + cls : ''); m.setAttribute('role', 'menu');
   m.innerHTML = items.map((it, i) => it === '-' ? '<hr>' : it.header ? `<div class="mh">${esc(it.header)}</div>` :
     `<button role="menuitem" data-i="${i}" class="${it.danger ? 'danger' : ''}">${it.html || (icon(it.icon || 'chevR') + '<span>' + esc(it.label) + '</span>')}</button>`).join('');
   document.body.appendChild(m);

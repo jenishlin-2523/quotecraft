@@ -81,9 +81,9 @@ function seedQuotes(company, customers, products) {
   const line = (n, qty, disc = 0, rate) => { const p = byName(n); return { pid: p.id, name: p.name, description: p.description, hsn: p.hsn, unit: p.unit, qty, rate: rate != null ? rate : p.rate, disc, gst: p.gst, image: '' }; };
   const specs = [
     { c: 2, d: 0, st: 'draft', subj: 'Lighting & electrical upgrade – Rooms 101 to 142', items: [line('LED Panel', 42), line('LED Downlight', 84, 5), line('BLDC Ceiling', 42, 8), line('Electrical Wiring', 210)] },
-    { c: 6, d: -1, st: 'sent', subj: 'Office fit-out – 60 seat workspace, Madhapur', items: [line('Linear Workstation', 15, 7), line('Ergonomic Mesh', 60, 10), line('LED Panel', 36), line('Gypsum False', 4200)], ch: 18500, chl: 'Freight & transit insurance' },
+    { c: 6, d: -8, st: 'sent', subj: 'Office fit-out – 60 seat workspace, Madhapur', items: [line('Linear Workstation', 15, 7), line('Ergonomic Mesh', 60, 10), line('LED Panel', 36), line('Gypsum False', 4200)], ch: 18500, chl: 'Freight & transit insurance' },
     { c: 0, d: -3, st: 'accepted', subj: 'Factory lighting upgrade – Unit II', items: [line('LED Panel', 120, 6), line('FR PVC Copper Wire 2.5', 14), line('Distribution Board', 6), line('MCB 32A', 24)] },
-    { c: 4, d: -6, st: 'sent', subj: 'Warehouse & office interiors, Mattancherry', items: [line('Solar LED', 12), line('COB Track', 18), line('Vitrified Floor', 140, 4), line('Premium Interior', 8)], ch: 12000, chl: 'Transportation to Kochi' },
+    { c: 4, d: -13, st: 'sent', subj: 'Warehouse & office interiors, Mattancherry', items: [line('Solar LED', 12), line('COB Track', 18), line('Vitrified Floor', 140, 4), line('Premium Interior', 8)], ch: 12000, chl: 'Transportation to Kochi' },
     { c: 1, d: -12, st: 'accepted', subj: 'OPD block electrical works', items: [line('Modular Switch', 30), line('Modular Socket', 120), line('FR PVC Copper Wire 1.5', 22), line('Electrical Wiring', 340), line('Annual Maintenance', 1)] },
     { c: 3, d: -20, st: 'rejected', subj: 'Cafeteria interiors – Tower B', items: [line('Gypsum False', 2600), line('LED Strip', 40), line('Interior Design', 24)] },
     { c: 5, d: -33, st: 'accepted', subj: 'Banquet hall lighting & HVAC', items: [line('Inverter AC', 8, 5), line('COB Track', 36), line('LED Strip', 28)], ch: 15000, chl: 'Freight to Bengaluru' },

@@ -2,6 +2,9 @@
 'use strict';
 
 let ED = null; // { q, isNew, dirty }
+// Header row of the line-items grid. Module level: drawLines() runs before the rest of viewEditor's body,
+// so a const declared inside viewEditor would still be uninitialised when editing a quotation that has lines.
+const LI_HEAD = `<div class="li-head" aria-hidden="true"><span>#</span><span>Item</span><span class="r">Qty</span><span>Unit</span><span class="r">Rate (₹)</span><span class="r">Disc %</span><span>GST</span><span class="r">Amount (₹)</span><span></span></div>`;
 
 function blankQuote(params) {
   const c = Store.company, date = todayISO();
@@ -152,7 +155,6 @@ function viewEditor(el, id, params) {
   }
 
   /* ---------- lines (compact editable grid) ---------- */
-  const LI_HEAD = `<div class="li-head" aria-hidden="true"><span>#</span><span>Item</span><span class="r">Qty</span><span>Unit</span><span class="r">Rate (₹)</span><span class="r">Disc %</span><span>GST</span><span class="r">Amount (₹)</span><span></span></div>`;
   function lineHTML(it, i, cl) {
     return `<div class="line" data-i="${i}">
       <div class="li-c li-idx">${i + 1}</div>
@@ -252,6 +254,10 @@ function viewEditor(el, id, params) {
             <div style="min-width:0"><div class="nm">${esc(p.name)}</div><div class="mt">${esc(p.sku || '')} · ${esc(p.category || '')} · GST ${p.gst}%${inQ ? ' · <b class="in-q">in quotation</b>' : ''}</div></div>
             <div class="rt"><b>${fmtINR(p.rate)}<small> /${esc(p.unit)}</small></b>${on ? `<div class="stepper" data-stop><button type="button" data-d="-1" aria-label="Decrease">${icon('minus')}</button><input value="${fmtQty(pick.get(p.id))}" inputmode="decimal" data-q aria-label="Quantity"><button type="button" data-d="1" aria-label="Increase">${icon('plus')}</button></div>` : ''}</div>
           </div>`; }).join('') : emptyState('search', 'No products found', 'Try a different search, or create a new product.', `<button class="btn" data-newp>${icon('plus')} New product</button>`);
+          footer();
+        };
+        // Selection summary only — quantity edits update this without re-rendering the list under the cursor
+        const footer = () => {
           const n = pick.size, units = [...pick.values()].reduce((a, b) => a + b, 0);
           $('#pkN', mel.parentNode).textContent = n ? `${n} selected · ${fmtQty(units)} qty` : 'No products selected';
           const add = $('#pkAdd', mel.parentNode); add.disabled = !n; add.textContent = n ? `Add ${n} to quotation` : 'Add to quotation';
@@ -263,11 +269,18 @@ function viewEditor(el, id, params) {
           if (e.target.closest('[data-newp]')) { m.close(); openProductModal({ name: st.s, unit: 'Nos', gst: 18, rate: '' }, (p) => addProducts([{ p, qty: 1 }])); return; }
           const row = e.target.closest('[data-p]'); if (!row) return;
           const d = e.target.closest('[data-d]');
-          if (d) { const id = row.dataset.p; pick.set(id, Math.max(1, r2(pick.get(id) + +d.dataset.d))); draw(); return; }
+          if (d) {
+            const id = row.dataset.p, v = Math.max(1, r2(pick.get(id) + +d.dataset.d)); pick.set(id, v);
+            const inp = $('[data-q]', row); if (inp) inp.value = fmtQty(v);
+            footer(); return;
+          }
           if (e.target.closest('[data-stop]')) return;
           toggle(row.dataset.p);
         });
-        $('#pkL', mel).addEventListener('change', (e) => { if (e.target.matches('[data-q]')) { const id = e.target.closest('[data-p]').dataset.p; pick.set(id, Math.max(1, num(e.target.value, 1))); draw(); } });
+        // Typing a quantity: keep the selection in sync as the user types; tidy the value when they leave the box
+        const qtyOf = (inp) => Math.max(1, num(inp.value, 1));
+        $('#pkL', mel).addEventListener('input', (e) => { if (e.target.matches('[data-q]')) { pick.set(e.target.closest('[data-p]').dataset.p, qtyOf(e.target)); footer(); } });
+        $('#pkL', mel).addEventListener('change', (e) => { if (e.target.matches('[data-q]')) { const v = qtyOf(e.target); pick.set(e.target.closest('[data-p]').dataset.p, v); e.target.value = fmtQty(v); footer(); } });
         $('#pkL', mel).addEventListener('keydown', (e) => { if ((e.key === ' ' || e.key === 'Enter') && e.target.matches('[data-p]')) { e.preventDefault(); toggle(e.target.dataset.p); setTimeout(() => { const r = $(`[data-p="${e.target.dataset.p}"]`, mel); r && r.focus(); }, 0); } });
         $('#pkAdd', mel.parentNode).addEventListener('click', () => { const sel = [...pick.entries()].map(([id, qty]) => ({ p: Store.product(id), qty })).filter((x) => x.p); m.close(); addProducts(sel); });
         draw();

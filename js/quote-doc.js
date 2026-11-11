@@ -9,9 +9,9 @@ const STATUS = {
   expired: { label: 'Expired', cls: 'st-expired' }
 };
 const TEMPLATES = [
-  { id: 'modern', name: 'Modern', hint: 'Brand accent rule, light grid' },
+  { id: 'modern', name: 'Modern', hint: 'Brand header, soft cards' },
   { id: 'classic', name: 'Classic', hint: 'Formal serif, ruled table' },
-  { id: 'minimal', name: 'Minimal', hint: 'Monochrome, generous space' }
+  { id: 'minimal', name: 'Minimal', hint: 'Clean editorial, fine lines' }
 ];
 const docTitle = (q) => (q.type === 'proforma' ? 'Proforma Invoice' : 'Quotation');
 
@@ -244,6 +244,22 @@ function shareText(q, company, plain = false) {
     'Warm regards,', company.signatory ? company.signatory.split(',')[0] : company.name, company.name, company.phone
   ].filter((x) => x !== null);
   return out.join('\n');
+}
+
+/* ---------- Follow-up text (plain, for the email reminder on quotations sent but not answered) ---------- */
+function followUpText(q, company) {
+  const c = calcQuote(q, company);
+  const cus = q.customer || {};
+  const lapsed = q.validUntil && q.validUntil < todayISO();
+  return [
+    cus.contact ? 'Dear ' + cus.contact + ',' : 'Dear Sir/Madam,', '',
+    `Hope you are doing well. This is a gentle follow-up on our ${docTitle(q).toLowerCase()} ${q.number} dated ${fmtDate(q.date)}${q.subject ? ` for "${q.subject}"` : ''}, amounting to ${fmtINR(c.grand)}.`, '',
+    lapsed
+      ? `The quotation validity ended on ${fmtDate(q.validUntil)}. We would be happy to reconfirm the prices and share an updated quotation.`
+      : `The quotation is valid until ${fmtDate(q.validUntil)}.`,
+    'Please let us know if you have any questions, or if we can go ahead with the order.', '',
+    'Warm regards,', company.signatory ? company.signatory.split(',')[0] : company.name, company.name, company.phone || null
+  ].filter((x) => x !== null).join('\n');
 }
 
 /* ---------- PDF (html2pdf.js) ---------- */

@@ -2,3 +2,6 @@
 .netlify
 
 .vercel
+
+# Browser-test screenshots/logs from local testing
+.playwright-mcp
